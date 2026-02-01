@@ -8,6 +8,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+
 class DetectBlue:
     """
     Detects blue objects from an image.
@@ -44,17 +45,17 @@ class DetectBlue:
         # ============
 
         # Convert the image's colour to HSV
-        hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
         # Set upper and lower bounds for colour detection, this is in HSV
-        lower_blue = np.array([100,150,0])
-        upper_blue = np.array([140,255,255])
+        lower_blue = np.array([100, 150, 0])
+        upper_blue = np.array([140, 255, 255])
 
         # Apply the threshold for the colour detection
-        mask = np.array(cv2.inRange(hsv,lower_blue,upper_blue))
+        mask = np.array(cv2.inRange(hsv, lower_blue, upper_blue))
 
         # Shows the detected colour from the mask
-        res = cv2.bitwise_and(img,img,mask=mask)
+        res = cv2.bitwise_and(img, img, mask=mask)
 
         # ============
         # ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -69,7 +70,6 @@ class DetectBlue:
 
         # Show res to see the result of what is being filtered in the colour detection
         cv2.imwrite(str(output_path), res)
-        
 
         # This parameter is needed to run tests
         return mask if return_mask else None
@@ -111,20 +111,20 @@ class DetectRed:
         # ============
 
         # Convert the image's colour to HSV
-        hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
         # Set upper and lower bounds for colour detection, this is in HSV
-        lower_red1 = np.array([0,120,70])
-        upper_red1 = np.array([10,255,255])
+        lower_red1 = np.array([0, 120, 70])
+        upper_red1 = np.array([10, 255, 255])
 
-        lower_red2 = np.array([170,120,70])
-        upper_red2 = np.array([179,255,255])
+        lower_red2 = np.array([170, 120, 70])
+        upper_red2 = np.array([179, 255, 255])
 
         # Apply the threshold for the colour detection
-        mask = cv2.inRange(hsv,lower_red1,upper_red1)|cv2.inRange(hsv,lower_red2,upper_red2)
-        
+        mask = cv2.inRange(hsv, lower_red1, upper_red1) | cv2.inRange(hsv, lower_red2, upper_red2)
+
         # Shows the detected colour from the mask
-        res = cv2.bitwise_and(img,img,mask=mask)
+        res = cv2.bitwise_and(img, img, mask=mask)
 
         # Annotate the colour detections
         # replace the '_' parameter with the appropiate variable
@@ -139,7 +139,7 @@ class DetectRed:
         cv2.imwrite(str(output_path), img)
 
         # Show res to see the result of what is being filtered in the colour detection
-        # cv2.imwrite(str(output_path), res)
+        cv2.imwrite(str(output_path), res)
 
         # ============
         # ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
@@ -148,7 +148,6 @@ class DetectRed:
         # Include the "return_mask" parameter if statement here, similar to how it is implemented in DetectBlue
         # Tests will not pass if this isn't included!
         return mask if return_mask else None
-
 
         # ============
         # ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
